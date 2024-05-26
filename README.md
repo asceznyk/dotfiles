@@ -1,5 +1,5 @@
-# mybar
-My polybar config
+# dotfiles
 
-### installation
-`cp ./config ~/.config/polybar/`
+These are collections of some of my dotfiles.
+
+
