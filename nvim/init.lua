@@ -4,6 +4,11 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.opt.termguicolors = true
+vim.opt.colorcolumn = '80'
+
+require("virt-column").setup({
+  char = "┊",
+})
 
 require("nvim-tree").setup()
 
@@ -23,6 +28,6 @@ require("nvim-tree").setup({
 })
 
 vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Toggle File Explorer' })
-vim.keymap.set('n', '<leader>ff', ':NvimTreeFindFile<CR>', { desc = 'Find current file in NvimTree' })
+vim.keymap.set('n', '<leader>ff', ':NvimTreeFindFile<CR>', { desc = 'Find current file in NvimTree'})
 
 

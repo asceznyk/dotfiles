@@ -27,7 +27,7 @@ Plug 'dkarter/bullets.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'godlygeek/tabular'
 Plug 'nvim-tree/nvim-tree.lua'
-
+Plug 'lukas-reineke/virt-column.nvim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
