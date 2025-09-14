@@ -33,11 +33,10 @@ Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
+
 set termguicolors
 
 colorscheme solarized
-
-"hi Normal guibg=NONE ctermbg=NONE
 
 
 " EasyAlign
@@ -73,16 +72,12 @@ autocmd FileType journal setlocal shiftwidth=2 tabstop=2 expandtab
 let mapleader=","
 xmap <leader>a gaip*
 nmap <leader>a gaip*
-nmap <leader>s <C-w>s<C-w>j:terminal<CR>
-nmap <leader>vs <C-w>v<C-w>l:terminal<CR>
-nmap <leader>j :set filetype=journal<CR>
 nmap <silent> <leader><leader> :noh<CR>
 nmap <Tab> :bnext<CR>
 nmap <S-Tab> :bprevious<CR>
-noremap <Leader>y "*y
-noremap <Leader>p "*p
-noremap <Leader>Y "+y
-noremap <Leader>P "+p
-nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
-nnoremap <C-f> :NERDTreeFind<CR>
+noremap <Leader>y "+y
+noremap <Leader>p "+p
+nnoremap <leader>w :NvimTreeToggle<CR>
+nnoremap <leader>tf :NvimTreeFindFile<CR>
+
+

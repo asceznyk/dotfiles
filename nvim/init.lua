@@ -6,11 +6,14 @@ vim.g.loaded_netrwPlugin = 1
 vim.opt.termguicolors = true
 vim.opt.colorcolumn = '80'
 
+vim.api.nvim_set_hl(0, "VertSplit", {
+  bold = false,
+  italic = false,
+})
+
 require("virt-column").setup({
   char = "┊",
 })
-
-require("nvim-tree").setup()
 
 require("nvim-tree").setup({
   sort = {
@@ -23,11 +26,13 @@ require("nvim-tree").setup({
     group_empty = true,
   },
   filters = {
-    dotfiles = true,
+    dotfiles = false,
+  },
+  actions = {
+    change_dir = {
+      enable = true,
+      global = true,
+    },
   },
 })
-
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { desc = 'Toggle File Explorer' })
-vim.keymap.set('n', '<leader>ff', ':NvimTreeFindFile<CR>', { desc = 'Find current file in NvimTree'})
-
 
