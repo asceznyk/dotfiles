@@ -11,40 +11,48 @@ set cursorline
 
 syntax enable
 
-
 call plug#begin()
-
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-tree/nvim-tree.lua'
+Plug 'maxmx03/solarized.nvim'
 Plug 'ervandew/supertab'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'alvan/vim-closetag'
 Plug 'tpope/vim-abolish'
-Plug 'sheerun/vim-polyglot'
 Plug 'chrisbra/Colorizer'
-Plug 'KabbAmine/vCoolor.vim'
-Plug 'vim-scripts/loremipsum'
 Plug 'dkarter/bullets.vim'
 Plug 'ryanoasis/vim-devicons'
 Plug 'godlygeek/tabular'
-Plug 'nvim-tree/nvim-tree.lua'
 Plug 'lukas-reineke/virt-column.nvim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
 call plug#end()
 
-
-set termguicolors
+if has("termguicolors")
+  set termguicolors
+endif
 
 colorscheme solarized
 
+hi Normal guibg=#000000
+hi LineNr guibg=#000000
+hi Visual guibg=#073642 guifg=NONE
+hi CursorLine guibg=#000000
+hi CursorLineNr guibg=#000000 guifg=#FFFFFF cterm=NONE gui=NONE
+hi Pmenu guibg=#000000
+hi PmenuSel guibg=#000000
+hi NvimTreeNormal guibg=#000000
+hi TelescopeNormal guibg=#000000
+hi TelescopeBorder guibg=#000000
+hi TelescopeSelection guibg=#000000 gui=bold
+hi TelescopeSelectionCaret guibg=#000000
 
-" EasyAlign
+highlight! link MsgSeparator Normal
+
 xmap ga <Plug>(EasyAlign)
 nmap ga <Plug>(EasyAlign)
 
-
-" HTML, XML, Jinja
 autocmd FileType html setlocal shiftwidth=2 tabstop=2 expandtab 
 autocmd FileType css setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType xml setlocal shiftwidth=2 tabstop=2 expandtab
@@ -58,17 +66,15 @@ autocmd FileType htmldjango setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType python setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType rust setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType go setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType lua setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
 autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
 autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
-
-
-" Markdown and Journal
 autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType journal setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType toml setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab
 
-
-" Custom Mappings
 let mapleader=","
 xmap <leader>a gaip*
 nmap <leader>a gaip*
