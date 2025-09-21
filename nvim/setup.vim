@@ -47,6 +47,7 @@ hi TelescopeNormal guibg=#000000
 hi TelescopeBorder guibg=#000000
 hi TelescopeSelection guibg=#000000 gui=bold
 hi TelescopeSelectionCaret guibg=#000000
+hi MatchParen guibg=#b58900 guifg=#000000
 
 highlight! link MsgSeparator Normal
 
