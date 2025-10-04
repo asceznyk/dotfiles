@@ -41,10 +41,12 @@ require("nvim-tree").setup({
 
 require("nvim-treesitter.configs").setup({
   ensure_installed = {
-    "c", "cpp", "java", "python", "rust", "go",
-    "javascript", "typescript",
+    "c", "cpp", "java",
+    "python", "rust", "go",
     "html", "css", "lua",
-    "markdown", "markdown_inline", 
+    "javascript", "typescript",
+    "markdown", "markdown_inline",
+    "toml", "yaml", "tsx" 
   },
   highlight = {
     enable = true,
@@ -68,5 +70,35 @@ vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = 'Telescope live gr
 vim.keymap.set('n', '<leader>fb', builtin.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help tags' })
 
+local cmp = require('cmp')
+cmp.setup({
+  mapping = cmp.mapping.preset.insert({
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+  sources = cmp.config.sources({
+    {
+      name = 'buffer',
+      option = {
+        get_bufnrs = function()
+          return vim.api.nvim_list_bufs()
+        end
+      }
+    },
+    { name = 'path' },
+  })
+})
 
 

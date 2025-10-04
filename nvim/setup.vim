@@ -15,7 +15,8 @@ call plug#begin()
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 Plug 'nvim-tree/nvim-tree.lua'
 Plug 'maxmx03/solarized.nvim'
-Plug 'ervandew/supertab'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-buffer'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/vim-easy-align'
 Plug 'alvan/vim-closetag'
@@ -68,13 +69,14 @@ autocmd FileType python setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType rust setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType go setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType lua setlocal shiftwidth=2 tabstop=2 expandtab
-autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
-autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
-autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
 autocmd FileType markdown setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType journal setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType toml setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType yaml setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType bash setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType htmldjango inoremap {{ {{  }}<left><left><left>
+autocmd FileType htmldjango inoremap {% {%  %}<left><left><left>
+autocmd FileType htmldjango inoremap {# {#  #}<left><left><left>
 
 let mapleader=","
 xmap <leader>a gaip*
