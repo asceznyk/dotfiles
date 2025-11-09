@@ -60,6 +60,7 @@ autocmd FileType css setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType xml setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd Filetype javascript setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd Filetype typescript setlocal shiftwidth=2 tabstop=2 expandtab
+autocmd FileType php setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType c setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType h setlocal shiftwidth=2 tabstop=2 expandtab
 autocmd FileType cpp setlocal shiftwidth=2 tabstop=2 expandtab
