@@ -15,7 +15,7 @@ vim.api.nvim_set_hl(0, "VertSplit", {
 })
 
 require("virt-column").setup({
-  char = "┊",
+  char = "┆",
 })
 
 require("nvim-tree").setup({
