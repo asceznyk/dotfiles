@@ -14,6 +14,19 @@ vim.api.nvim_set_hl(0, "VertSplit", {
   italic = false,
 })
 
+require("bufferline").setup({
+  highlights = {
+    buffer_selected = { italic = false },
+    diagnostic_selected = { italic = false },
+    hint_selected = { italic = false },
+    info_selected = { italic = false },
+    warning_selected = { italic = false },
+    error_selected = { italic = false },
+    numbers_selected = { italic = false },
+    pick_selected = { italic = false },
+  }
+})
+
 require("virt-column").setup({
   char = "┆",
 })

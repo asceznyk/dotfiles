@@ -25,6 +25,7 @@ Plug 'chrisbra/Colorizer'
 Plug 'dkarter/bullets.vim'
 Plug 'nvim-tree/nvim-web-devicons'
 Plug 'godlygeek/tabular'
+Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
 Plug 'lukas-reineke/virt-column.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
