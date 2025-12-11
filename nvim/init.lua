@@ -37,6 +37,7 @@ require("nvim-tree").setup({
       global = true,
     },
   },
+  sync_root_with_cwd = false,
 })
 
 require("nvim-treesitter.configs").setup({
