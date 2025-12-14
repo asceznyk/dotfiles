@@ -25,8 +25,8 @@ bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $
 floating_modifier $mod
 #tiling_drag modifier titlebar
 
-### Run wofi
-bindsym $mod+d exec wofi --show drun
+### Run rofi
+bindsym $mod+space exec rofi -show drun
 
 ### Apps
 bindsym $mod+Return exec $term
@@ -34,12 +34,6 @@ bindsym $mod+Shift+Return exec $browser
 
 ### Kill window
 bindsym $mod+Shift+q kill
-
-### Focus
-bindsym $mod+j focus left
-bindsym $mod+k focus down
-bindsym $mod+l focus up
-bindsym $mod+semicolon focus right
 
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
@@ -66,8 +60,8 @@ bindsym $mod+w layout tabbed
 bindsym $mod+e layout toggle split
 
 ### Floating
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
+bindsym $mod+Shift+d floating toggle
+bindsym $mod+d focus mode_toggle
 
 ### Workspaces
 set $ws1 "1"
