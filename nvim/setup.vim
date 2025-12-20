@@ -84,8 +84,8 @@ let mapleader=","
 xmap <leader>a gaip*
 nmap <leader>a gaip*
 nmap <silent> <leader><leader> :noh<CR>
-nmap <Tab> :bnext<CR>
-nmap <S-Tab> :bprevious<CR>
+nmap <Tab> :BufferLineCycleNext<CR>
+nmap <S-Tab> :BufferLineCyclePrev<CR>
 noremap <Leader>y "+y
 noremap <Leader>p "+p
 nnoremap <leader>w :NvimTreeToggle<CR>

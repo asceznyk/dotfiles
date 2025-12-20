@@ -3,6 +3,9 @@ vim.cmd('source ~/.config/nvim/setup.vim')
 vim.api.nvim_set_hl(0, "@variable", { fg = "#839496" })
 vim.api.nvim_set_hl(0, "@variable.parameter", { italic = false })
 
+vim.keymap.set("n", "<leader><Left>", ":BufferLineMovePrev<CR>")
+vim.keymap.set("n", "<leader><Right>", ":BufferLineMoveNext<CR>")
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
@@ -28,7 +31,12 @@ require("bufferline").setup({
 })
 
 require("virt-column").setup({
-  char = "┆",
+  char = "|",
+  highlight = "VirtColumn",
+})
+
+vim.api.nvim_set_hl(0, "VirtColumn", {
+  fg = "#002b36",
 })
 
 require("nvim-tree").setup({
