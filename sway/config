@@ -1,29 +1,21 @@
 ### Variables
 set $mod Mod4
 set $term alacritty
-set $browser brave
+set $browser brave 
 
 ### Font
 font pango:Hack Nerd Font 11
 
 ### Keyboard layout (Wayland-style)
 input * {
-    xkb_layout us
+  xkb_layout us
 }
 
 ### Autostart
 exec nm-applet --indicator
 
-### Volume keys (PipeWire / PulseAudio)
-set $refresh_status pkill -SIGUSR1 i3status
-bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +10% && $refresh_status
-bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -10% && $refresh_status
-bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle && $refresh_status
-bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_status
-
 ### Mouse
 floating_modifier $mod
-#tiling_drag modifier titlebar
 
 ### Run rofi
 bindsym $mod+space exec rofi -show drun
@@ -33,19 +25,15 @@ bindsym $mod+Return exec $term
 bindsym $mod+Shift+Return exec $browser
 
 ### Kill window
-bindsym $mod+Shift+q kill
+bindsym $mod+q kill
 
+### Window focus
 bindsym $mod+Left focus left
 bindsym $mod+Down focus down
 bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
-### Move windows
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
-
+### Window moves
 bindsym $mod+Shift+Left move left
 bindsym $mod+Shift+Down move down
 bindsym $mod+Shift+Up move up
@@ -100,37 +88,74 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 ### Reload / Exit
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+r restart
-bindsym $mod+Shift+e exec swaynag -t warning -m "Exit Sway?" -B "Yes" "swaymsg exit"
+bindsym $mod+Shift+e exec swaymsg exit
 
 ### Resize mode
 mode "resize" {
-    bindsym j resize shrink width 10 px
-    bindsym k resize grow height 10 px
-    bindsym l resize shrink height 10 px
-    bindsym semicolon resize grow width 10 px
+  bindsym j resize shrink width 10 px
+  bindsym k resize grow height 10 px
+  bindsym l resize shrink height 10 px
+  bindsym semicolon resize grow width 10 px
 
-    bindsym Left resize shrink width 10 px
-    bindsym Down resize grow height 10 px
-    bindsym Up resize shrink height 10 px
-    bindsym Right resize grow width 10 px
+  bindsym Left resize shrink width 10 px
+  bindsym Down resize grow height 10 px
+  bindsym Up resize shrink height 10 px
+  bindsym Right resize grow width 10 px
 
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-    bindsym $mod+r mode "default"
+  bindsym Return mode "default"
+  bindsym Escape mode "default"
+  bindsym $mod+r mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
 ### Bar
 bar {
+  separator_symbol "  "
+    position bottom
+    height 22
     status_command i3status
 }
 
+### Touchpad
 input type:touchpad {
-    tap enabled
-    natural_scroll enabled
-    scroll_method two_finger
-    middle_emulation enabled
+  tap enabled
+  natural_scroll enabled
+  scroll_method two_finger
+  middle_emulation enabled
+  pointer_accel 0.6
 }
+
+### Borders
+default_border pixel 2
+
+### Display
+output eDP-1 scale 1.1
+
+### SwayOSD
+exec_always --no-startup-id swayosd-server
+
+### Volume keys (PipeWire / PulseAudio) 
+bindsym F3 exec swayosd-client --output-volume raise
+bindsym F2 exec swayosd-client --output-volume lower
+bindsym F1 exec swayosd-client --output-volume mute-toggle
+
+### Brightness keys
+bindsym F4 exec swayosd-client --brightness lower
+bindsym F5 exec swayosd-client --brightness raise
+
+### Toggle Mic
+bindsym F9 exec swayosd-client --input-volume mute-toggle
+
+### Print Screen
+bindsym Print exec grim ~/pictures/shot_$(date +%s).png 
+bindsym Shift+Print exec grim -g "$(slurp)" ~/pictures/shot_$(date +%s).png
+
+### Notifs
+exec_always mako
+
+### XDG_CURRENT_DESKTOP
+exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
 
 
