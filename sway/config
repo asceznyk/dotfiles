@@ -22,7 +22,7 @@ bindsym $mod+space exec rofi -show drun
 
 ### Apps
 bindsym $mod+Return exec $term
-bindsym $mod+Shift+Return exec $browser
+bindsym $mod+b exec $browser
 
 ### Kill window
 bindsym $mod+q kill
@@ -125,9 +125,6 @@ input type:touchpad {
   middle_emulation enabled
   pointer_accel 0.6
 }
-
-### Borders
-default_border pixel 2
 
 ### Display
 output eDP-1 scale 1.1
