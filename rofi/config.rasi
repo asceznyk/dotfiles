@@ -1,5 +1,4 @@
 * {
-    /* Dracula theme colour palette */
     drac-bgd: #000000; 
     drac-cur: #073642;
     drac-fgd: #839496;
@@ -12,7 +11,7 @@
     drac-red: #dc322f;
     drac-yel: #b58900;
 
-    font: "Hack Regular 9";
+    font: "Hack Nerd Font 11";
 
     foreground: @drac-fgd;
     background: @drac-bgd;
@@ -28,10 +27,10 @@
 
 #window {
     background-color: @drac-bgd;
-    border:           2;
+    border: 2;
     border-radius: 0;
     border-color: @drac-cur;
-    padding:          5;
+    padding: 5;
 }
 #mainbox {
     border:  0;
