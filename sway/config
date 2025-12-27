@@ -24,7 +24,7 @@ exec nm-applet --indicator
 floating_modifier $mod
 
 ### Run rofi
-bindsym $mod+space exec rofi -show drun
+bindsym $mod+Space exec rofi -show drun
 
 ### Apps
 bindsym $mod+Return exec $term
@@ -49,12 +49,13 @@ bindsym $mod+Shift+Right move right
 bindsym $mod+h split h
 bindsym $mod+v split v
 bindsym $mod+f fullscreen toggle
+bindsym $mod+t layout tabbed
 bindsym $mod+s layout stacking
 bindsym $mod+e layout toggle split
 
 ### Floating
-bindsym $mod+Shift+d floating toggle
-bindsym $mod+d focus mode_toggle
+bindsym $mod+o floating toggle
+bindsym $mod+Semicolon focus mode_toggle
 
 ### Workspaces
 set $ws1 "1"
@@ -97,11 +98,6 @@ bindsym $mod+Shift+e exec swaymsg exit
 
 ### Resize mode
 mode "resize" {
-  bindsym j resize shrink width 10 px
-  bindsym k resize grow height 10 px
-  bindsym l resize shrink height 10 px
-  bindsym semicolon resize grow width 10 px
-
   bindsym Left resize shrink width 10 px
   bindsym Down resize grow height 10 px
   bindsym Up resize shrink height 10 px
