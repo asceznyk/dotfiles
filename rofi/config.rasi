@@ -11,7 +11,7 @@
     drac-red: #dc322f;
     drac-yel: #b58900;
 
-    font: "Hack Nerd Font 11";
+    font: "JetBrainsMono Nerd Font 11";
 
     foreground: @drac-fgd;
     background: @drac-bgd;

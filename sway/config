@@ -10,7 +10,7 @@ workspace_layout tabbed
 default_border pixel 2
 
 ### Font
-font pango:Hack Nerd Font 11
+font pango:JetBrainsMono Nerd Font 11
 
 ### Keyboard layout (Wayland-style)
 input * {
@@ -153,6 +153,6 @@ bindsym Shift+Print exec grim -g "$(slurp)" ~/pictures/shot_$(date +%s).png
 ### Notifs
 exec_always mako
 
-### XDG_CURRENT_DESKTOP
-exec systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+### For screenshare
+exec_always systemctl --user import-environment WAYLAND_DISPLAY XDG_RUNTIME_DIR XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
 
