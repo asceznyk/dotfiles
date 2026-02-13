@@ -10,7 +10,7 @@ workspace_layout tabbed
 default_border pixel 2
 
 ### Font
-font pango:JetBrainsMono Nerd Font 11
+font pango:JetBrainsMono Nerd Font 10
 
 ### Keyboard layout (Wayland-style)
 input * {
@@ -114,9 +114,9 @@ bindsym $mod+r mode "resize"
 ### Bar
 bar {
   separator_symbol "  "
-    position bottom
-    height 22
-    status_command i3status
+  position bottom
+  height 25
+  status_command i3status
 }
 
 ### Touchpad
@@ -125,7 +125,7 @@ input type:touchpad {
   natural_scroll enabled
   scroll_method two_finger
   middle_emulation enabled
-  pointer_accel 0.6
+  pointer_accel 0.9
 }
 
 ### Display
@@ -152,6 +152,9 @@ bindsym Shift+Print exec grim -g "$(slurp)" ~/pictures/shot_$(date +%s).png
 
 ### Notifs
 exec_always mako
+
+### Wallpaper
+exec_always swaybg -i ~/pictures/thumb_st_jp3.jpg -m fill
 
 ### For screenshare
 exec_always systemctl --user import-environment WAYLAND_DISPLAY XDG_RUNTIME_DIR XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
