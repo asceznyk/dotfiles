@@ -89,9 +89,10 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
+alias lt='ls -lth'
 alias ll='ls -alF'
 alias la='ls -A'
-alias l='ls -CF'
+alias lc='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -129,71 +130,4 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 alias nv="nvim"
-
-export LOCAL_MOUNT_PATH="/home/aris/code/remote"
-
-export EC2_SUPERCHAT="i-097082b9763aa09d5"
-export EC2_DIAGENE="i-0d633b20acc2fc58e"
-export GCPVM_DIAGENE="gcp-instance-20251111-111040"
-export AWS_KEY="/home/aris/.ssh/awsx.pem"
-export REMOTE_MOUNT_PATH="/home/ubuntu"
-
-function start_ec2() {
-  aws ec2 start-instances --instance-ids=$1 | jq
-}
-
-function stop_ec2() {
-  aws ec2 stop-instances --instance-ids=$1 | jq
-}
-
-function get_ec2_addr() {
-  aws ec2 describe-instances \
-    --instance-ids "$1" \
-    --query="Reservations[0].Instances[0].PublicIpAddress" \
-    --output=text
-}
-
-function ec2ssh() {
-  local addr=$(get_ec2_addr "$1")
-  echo "connecting to $addr .."
-  ssh -i "$AWS_KEY" -o IdentitiesOnly=yes ubuntu@"$addr"
-}
-
-function ec2_rclone_update() {
-  local rclone_conf="$HOME/.config/rclone/rclone.conf"
-  local new_ip=$(get_ec2_addr "$1")
-  echo "Updating host for [$1] to $new_ip"
-  awk -v remote="[$1]" -v new_ip="$new_ip" '
-  $0 == remote { in_remote=1; print; next }
-  in_remote && /^host =/ { print "host = " new_ip; in_remote=0; next }
-  { print }
-  ' "$rclone_conf" > "$rclone_conf.tmp" && mv "$rclone_conf.tmp" "$rclone_conf"
-  echo "rclone.conf updated successfully!"
-}
-
-function ec2mount() {
-  ec2_rclone_update "$1" &&
-  nohup rclone mount \
-    "$1":$2 "$3" \
-    --vfs-cache-mode full \
-    --vfs-cache-max-age 1m \
-    --dir-cache-time 5s \
-    -v & 
-}
-
-function gcp_mount() {
-  nohup rclone mount \
-    "$1":$2 "$3" \
-    --vfs-cache-mode full \
-    --vfs-cache-max-age 1m \
-    --dir-cache-time 5s \
-    -v & 
-}
-
-if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-  eval "$(ssh-agent -s)" >/dev/null
-fi
-
-
-
 
