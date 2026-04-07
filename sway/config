@@ -1,7 +1,7 @@
 ### Variables
 set $mod Mod4
-set $term alacritty
-set $browser brave 
+set $term kitty
+set $browser brave
 
 ### Default layout - Tabbed!
 workspace_layout tabbed
@@ -103,7 +103,6 @@ mode "resize" {
   bindsym Down resize grow height 10 px
   bindsym Up resize shrink height 10 px
   bindsym Right resize grow width 10 px
-
   bindsym Return mode "default"
   bindsym Escape mode "default"
   bindsym $mod+r mode "default"
@@ -125,7 +124,13 @@ input type:touchpad {
   natural_scroll enabled
   scroll_method two_finger
   middle_emulation enabled
-  pointer_accel 0.9
+  pointer_accel 1
+}
+
+### Mouse
+input "*" {
+  pointer_accel 1
+  scroll_factor 3
 }
 
 ### Display
@@ -158,4 +163,8 @@ exec_always swaybg -i ~/pictures/thumb_st_jp3.jpg -m fill
 
 ### For screenshare
 exec_always systemctl --user import-environment WAYLAND_DISPLAY XDG_RUNTIME_DIR XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
+
+### Night Light
+exec_always systemctl --user import-environment WAYLAND_DISPLAY
+
 
