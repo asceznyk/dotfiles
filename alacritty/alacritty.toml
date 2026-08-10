@@ -1,7 +1,7 @@
 [colors]
-draw_bold_text_with_bright_colors = true
+draw_bold_text_with_bright_colors = false
 
-[colors.bright]
+[colors.normal]
 black = "#002b36"
 blue = "#268bd2"
 cyan = "#2aa198"
@@ -10,6 +10,16 @@ magenta = "#d33682"
 red = "#dc322f"
 white = "#fdf6e3"
 yellow = "#b58900"
+
+[colors.bright]
+black = "#002b36"
+red = "#cb4b16"
+green = "#586e75"
+yellow = "#657b83"
+blue = "#839496"
+magenta = "#6c71c4"
+cyan = "#93a1a1"
+white = "#fdf6e3"
 
 [colors.cursor]
 cursor = "#b58900"
@@ -25,19 +35,9 @@ red = "#dc322f"
 white = "#fdf6e3"
 yellow = "#b58900"
 
-[colors.normal]
-black = "#002b36"
-blue = "#268bd2"
-cyan = "#2aa198"
-green = "#859900"
-magenta = "#d33682"
-red = "#dc322f"
-white = "#fdf6e3"
-yellow = "#b58900"
-
 [colors.primary]
 background = "#000000"
-dim_foreground = "#000000"
+dim_foreground = "#4d5a5b"
 foreground = "#839496"
 
 [colors.search.matches]
@@ -163,7 +163,7 @@ mode = "~Alt"
 mods = "Shift"
 
 [scrolling]
-history = 5000
+history = 100000
 
 [window]
 dynamic_padding = true

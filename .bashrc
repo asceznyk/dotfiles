@@ -89,7 +89,6 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias lt='ls -lth'
 alias ll='ls -alF'
 alias la='ls -A'
 alias lc='ls -CF'
@@ -130,4 +129,18 @@ export NVM_DIR="$HOME/.nvm"
 export PATH="$PATH:/opt/nvim-linux-x86_64/bin"
 
 alias nv="nvim"
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/asceznyk/gcloud/path.bash.inc' ]; then . '/home/asceznyk/gcloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/asceznyk/gcloud/completion.bash.inc' ]; then . '/home/asceznyk/gcloud/completion.bash.inc'; fi
+
+if ! pgrep -u "$USER" ssh-agent > /dev/null; then
+  eval "$(ssh-agent -s)" >/dev/null
+fi
+
+export PATH="$HOME/.local/bin:$PATH"
+
+export PATH="$HOME/.npm-global/bin:$PATH"
 
