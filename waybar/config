@@ -1,0 +1,49 @@
+{
+  "layer": "top",
+  "position": "bottom",
+  "height": 25,
+  "spacing": 0,
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+  "modules-right": [
+    "network",
+    "disk",
+    "cpu",
+    "memory",
+    "battery",
+    "clock"
+  ],
+  "hyprland/workspaces": {
+    "disable-scroll": true,
+    "all-outputs": true,
+    "format": "{name}",
+    "persistent-workspaces": {
+      "*": 3
+    }
+  },
+  "clock": {
+    "format": "datetime: {:%H:%M}",
+    "tooltip-format": "{:%A, %d %B %Y}"
+  },
+  "network": {
+    "format-wifi": "NET: {essid}/{ipaddr}",
+    "format-ethernet": "NET: ethernet",
+    "format-disconnected": "NET: offline"
+  },
+  "disk": {
+    "path": "/",
+    "format": "disk: {used}/{total}"
+  },
+  "cpu": {
+    "format": "cpu: {usage}%"
+  },
+  "memory": {
+    "format": "mem: {percentage}%"
+  },
+  "battery": {
+    "format": "BAT: {capacity}%",
+    "format-charging": "CHR: {capacity}%",
+    "format-full": "FULL: 100%"
+  }
+}
