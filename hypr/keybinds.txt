@@ -9,7 +9,8 @@ SUPER + O             → Toggle floating
 SUPER + 1–9           → Switch workspace
 SUPER + Shift + 1–9   → Move window to workspace
 SUPER + Arrow         → Move focus
-SUPER + Shift + Arrow → Swap window
+SUPER + SHIFT + Arrow → Swap window
 SUPER + CTRL + Arrow  → Resize window(s)
-
+SUPER + SHIFT + E     → Logout
+SUPER + SHIFT + P     → Shutdown
 
