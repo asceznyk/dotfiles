@@ -8,6 +8,7 @@ hl.monitor({
 local terminal = "kitty"
 local fileManager = "nautilus"
 local menu = "rofi -show drun"
+local keybinds = "rofi -dmenu -i -p \"Keybinds\" < ~/.config/hypr/keybinds.txt"
 local browser = "brave"
 
 hl.on("hyprland.start", function()
@@ -103,7 +104,7 @@ hl.gesture({
 
 hl.device({
   name = "epic-mouse-v1",
-  sensitivity = -0.5,
+  sensitivity = 1.0,
 })
 
 local mainMod = "SUPER"
@@ -111,8 +112,9 @@ local mainMod = "SUPER"
 hl.bind("Print", hl.dsp.exec_cmd("grim $HOME/pictures/shot_$(date +%s).png"))
 hl.bind("SHIFT + Print", hl.dsp.exec_cmd("grim -g \"$(slurp)\" $HOME/pictures/shot_$(date +%s).png"))
 
+hl.bind(mainMod .. " + K", hl.dsp.exec_cmd(keybinds))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("networkmanager_dmenu"))
-
+hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("shutdown now"))
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
 local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())

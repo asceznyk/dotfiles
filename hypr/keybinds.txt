@@ -1,0 +1,15 @@
+SUPER + K             → Keybinds   
+SUPER + Return        → Terminal
+SUPER + B             → Browser
+SUPER + W             → Network Manager
+SUPER + Space         → Rofi - Application Launcher
+SUPER + Q             → Kill window
+SUPER + F             → File Manager
+SUPER + O             → Toggle floating
+SUPER + 1–9           → Switch workspace
+SUPER + Shift + 1–9   → Move window to workspace
+SUPER + Arrow         → Move focus
+SUPER + Shift + Arrow → Swap window
+SUPER + CTRL + Arrow  → Resize window(s)
+
+
