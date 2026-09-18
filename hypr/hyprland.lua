@@ -2,11 +2,10 @@ hl.monitor({
   output = "",
   mode = "1920x1080@60.00100",
   position = "0x0",
-  scale = 1.2,
+  scale = 1.0,
 })
 
 local terminal = "kitty"
-local fileManager = "nautilus"
 local menu = "rofi -show drun"
 local keybinds = "rofi -dmenu -i -p \"Keybinds\" < ~/.config/hypr/keybinds.txt"
 local browser = "brave"
@@ -21,9 +20,11 @@ end)
 hl.env("XCURSOR_SIZE", "18")
 hl.env("HYPRCURSOR_SIZE", "18")
 
+hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
+
 hl.config({
   general = {
-    gaps_in = 2,
+    gaps_in = 0,
     gaps_out = 0,
     border_size = 2,
     col = {
@@ -37,25 +38,25 @@ hl.config({
   decoration = {
     rounding = 0,
     active_opacity = 1.0,
-    inactive_opacity = 0.7,
+    inactive_opacity = 0.9,
     shadow = { enabled = false, },
     blur = {
       enabled = true,
-      size = 4,
-      passes = 0,
-      vibrancy = 0.2,
+      size = 3,
+      passes = 4,
+      vibrancy = 2.0,
     },
   },
   animations = {
     enabled = true,
+    workspace_wraparound = true
   },
 })
 
-hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
-
-hl.animation({ leaf = "global", enabled = true, speed = 1, bezier = "default" })
+hl.animation({ leaf = "global", enabled = true, speed = 1, bezier = "quick" })
 hl.animation({ leaf = "border", enabled = true, speed = 1, bezier = "quick" })
 hl.animation({ leaf = "windows", enabled = true, speed = 1, bezier = "quick" })
+hl.animation({ leaf = "windowsMove", enabled = true, speed = 1, bezier = "quick" })
 hl.animation({ leaf = "fade", enabled = true, speed = 1, bezier = "quick" })
 hl.animation({ leaf = "layers", enabled = true, speed = 1, bezier = "quick" })
 hl.animation({ leaf = "workspaces", enabled = true, speed = 1, bezier = "quick" })
@@ -78,6 +79,8 @@ hl.config({
     force_default_wallpaper = 1, 
     disable_hyprland_logo = true,
     disable_splash_rendering = true,
+    animate_manual_resizes = true,
+    animate_mouse_windowdragging = true,
   },
 })
 
@@ -109,26 +112,39 @@ hl.device({
 
 local mainMod = "SUPER"
 
-hl.bind("Print", hl.dsp.exec_cmd("grim $HOME/pictures/shot_$(date +%s).png"))
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd("grim -g \"$(slurp)\" $HOME/pictures/shot_$(date +%s).png"))
+hl.bind("Print", hl.dsp.exec_cmd("grim $HOME/pictures/shot_$(date +%s).png && notify-send \"Screenshot saved to ~/pictures/shot_$(date +%s).png\""))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("grim -g \"$(slurp)\" $HOME/pictures/shot_$(date +%s).png && notify-send \"Screenshot saved to ~/pictures/shot_$(date +%s).png\""))
 
 hl.bind(mainMod .. " + K", hl.dsp.exec_cmd(keybinds))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("networkmanager_dmenu"))
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("shutdown now"))
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
-local closeWindowBind = hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+
+local maximized = {}
+hl.bind(mainMod .. " + M", function()
+  local w = hl.get_active_window()
+  if w == nil then return end
+  local id = w.address
+  if maximized[id] then
+    hl.dispatch(hl.dsp.layout("colresize 0.5"))
+    maximized[id] = nil
+  else
+    hl.dispatch(hl.dsp.layout("colresize 1.0"))
+    maximized[id] = true
+  end
+end)
+
 hl.bind(
   mainMod .. " + SHIFT + E", 
   hl.dsp.exec_cmd(
     "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"
   )
 )
-hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(fileManager))
 hl.bind(mainMod .. " + O", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
-hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
 
 hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "left" }))
 hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "right" }))
@@ -165,6 +181,11 @@ hl.bind(
   hl.dsp.window.resize({ x = -15, y = 0, relative = true }), { repeating = true }
 )
 
+hl.bind(mainMod .. "+ SHIFT + left", hl.dsp.window.swap({ direction = "left" }))
+hl.bind(mainMod .. "+ SHIFT + right", hl.dsp.window.swap({ direction = "right" }))
+hl.bind(mainMod .. "+ SHIFT + up", hl.dsp.window.swap({ direction = "up" }))
+hl.bind(mainMod .. "+ SHIFT + down", hl.dsp.window.swap({ direction = "down" }))
+
 hl.bind("F1", hl.dsp.exec_cmd("swayosd-client --output-volume mute-toggle"))
 hl.bind("F2", hl.dsp.exec_cmd("swayosd-client --output-volume lower"))
 hl.bind("F3", hl.dsp.exec_cmd("swayosd-client --output-volume raise"))
@@ -190,16 +211,11 @@ hl.window_rule({
     title = "^$",
     xwayland = true,
     float = true,
-    fullscreen = false,
+    fullscreen = true,
     pin = false,
   },
   no_focus = true,
 })
-
-hl.bind(mainMod .. "+ SHIFT + left", hl.dsp.window.swap({ direction = "left" }))
-hl.bind(mainMod .. "+ SHIFT + right", hl.dsp.window.swap({ direction = "right" }))
-hl.bind(mainMod .. "+ SHIFT + up", hl.dsp.window.swap({ direction = "up" }))
-hl.bind(mainMod .. "+ SHIFT + down", hl.dsp.window.swap({ direction = "down" }))
 
 hl.window_rule({
   name = "move-hyprland-run",

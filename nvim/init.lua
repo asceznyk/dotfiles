@@ -14,6 +14,7 @@ vim.opt.termguicolors = true
 vim.opt.colorcolumn = "80"
 vim.opt.clipboard = "unnamedplus"
 
+vim.opt.runtimepath:append(vim.fn.stdpath("data"))
 vim.opt.runtimepath:append("/usr/share/tree-sitter")
 
 vim.cmd("syntax on")
@@ -36,7 +37,7 @@ vim.cmd([[
   Plug 'akinsho/bufferline.nvim', { 'tag': '*' }
   Plug 'lukas-reineke/virt-column.nvim'
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-telescope/telescope.nvim', { 'tag': '0.1.8' }
+  Plug 'nvim-telescope/telescope.nvim'
   call plug#end()
 ]])
 
@@ -50,7 +51,7 @@ set_hl(0, "Visual", { bg = "#073642" })
 set_hl(0, "CursorLine", { bg = "#000000" })
 set_hl(0, "CursorLineNr", { bg = "#000000", fg = "#FFFFFF", bold = false })
 set_hl(0, "Pmenu", { bg = "#000000" })
-set_hl(0, "PmenuSel", { bg = "#000000" })
+set_hl(0, "PmenuSel", { bg = "#000000", fg = "#FFFFFF" })
 set_hl(0, "NvimTreeNormal", { bg = "#000000" })
 set_hl(0, "TelescopeNormal", { bg = "#000000" })
 set_hl(0, "TelescopeBorder", { bg = "#000000" })
@@ -161,10 +162,20 @@ cmp.setup({
   })
 })
 
+vim.filetype.add({
+  extension = {
+    h = "c",
+    tsx = "tsx",
+  },
+})
+
 vim.api.nvim_create_autocmd("FileType", {
   callback = function(args)
     pcall(vim.treesitter.start, args.buf)
   end
 })
 
+vim.api.nvim_create_user_command("RemoveFunctionBlankLines", function()
+  require("remove_blank_lines").run()
+end, {})
 

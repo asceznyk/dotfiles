@@ -1,5 +1,6 @@
 * {
     solarized-bgd: #000000;
+    solarized-brd: #268bd2;
     solarized-cur: #002b36;
     solarized-urg: #2b1b1b;
     solarized-fgd: #839496;
@@ -12,7 +13,7 @@
     solarized-red: #dc322f;
     solarized-yel: #b58900;
 
-    font: "JetBrainsMono Nerd Font 10";
+    font: "monospace 12";
 
     foreground: @solarized-fgd;
     background: @solarized-bgd;
@@ -30,7 +31,7 @@
     background-color: @solarized-bgd;
     border: 2;
     border-radius: 0;
-    border-color: @solarized-cur;
+    border-color: @solarized-brd;
     padding: 5;
 }
 #mainbox {

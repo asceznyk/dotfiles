@@ -4,7 +4,7 @@ SUPER + B             → Browser
 SUPER + W             → Network Manager
 SUPER + Space         → Rofi - Application Launcher
 SUPER + Q             → Kill window
-SUPER + F             → File Manager
+SUPER + M             → Maximize/restore window
 SUPER + O             → Toggle floating
 SUPER + 1–9           → Switch workspace
 SUPER + Shift + 1–9   → Move window to workspace
@@ -13,4 +13,5 @@ SUPER + SHIFT + Arrow → Swap window
 SUPER + CTRL + Arrow  → Resize window(s)
 SUPER + SHIFT + E     → Logout
 SUPER + SHIFT + P     → Shutdown
+
 
