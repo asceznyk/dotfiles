@@ -3,24 +3,41 @@
   "position": "bottom",
   "height": 25,
   "spacing": 0,
+  "exclusive": true,
   "modules-left": [
-    "hyprland/workspaces"
+    "ext/workspaces"
   ],
   "modules-right": [
+    "tray",
+    "bluetooth",
     "network",
-    "disk",
+    "battery",
+    "temperature",
     "cpu",
     "memory",
-    "battery",
+    "disk",
     "clock"
   ],
-  "hyprland/workspaces": {
+  "ext/workspaces": {
     "disable-scroll": true,
     "all-outputs": true,
     "format": "{name}",
+    "on-click": "activate",
     "persistent-workspaces": {
       "*": 3
     }
+  },
+  "bluetooth": {
+    "format": "BT: {status}",
+    "format-disabled": "BT: off",
+    "format-off": "BT: off",
+    "format-on": "BT: on",
+    "format-connected": "BT: {device_alias}",
+    "format-connected-battery": "BT: {device_alias}"
+  },
+  "tray": {
+    "icon-size": 18,
+    "spacing": 5
   },
   "clock": {
     "format": "datetime: {:%H:%M}",
@@ -36,14 +53,30 @@
     "format": "disk: {used}/{total}"
   },
   "cpu": {
+    "interval": 1,
     "format": "cpu: {usage}%"
   },
   "memory": {
-    "format": "mem: {percentage}%"
+    "interval": 1,
+    "format": "mem: {used}GiB/{total}GiB"
+  },
+  "temperature": {
+    "interval": 5,
+    "thermal-zone": 0,
+    "critical-threshold": 80,
+    "format": "temp: {temperatureC}°C",
+    "format-critical": "temp: {temperatureC}°C"
   },
   "battery": {
+    "interval": 1,
+    "states": {
+      "warning": 20,
+      "critical": 5
+    },
     "format": "BAT: {capacity}%",
-    "format-charging": "CHR: {capacity}%",
-    "format-full": "FULL: 100%"
+    "format-warning": "LOW: {capacity}%",
+    "format-critical": "MIN: {capacity}%",
+    "format-full": "MAX: 100%",
+    "format-charging": "CHR: {capacity}%"
   }
 }

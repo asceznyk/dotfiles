@@ -1,0 +1,15 @@
+Mod + K             → Keybinds   
+Mod + Return        → Terminal
+Mod + B             → Browser
+Mod + W             → Network Manager
+Mod + Space         → Rofi - Application Launcher
+Mod + Q             → Kill window
+Mod + O             → Toggle floating
+Mod + 1–9           → Switch workspace
+Mod + Shift + 1–9   → Move window to workspace
+Mod + Arrow         → Move focus
+Mod + Shift + Arrow → Swap window
+Mod + R, Arrow      → Resize window 
+Mod + Shift + C     → Reload Sway
+Mod + Shift + E     → Logout
+Mod + Shift + P     → Shutdown

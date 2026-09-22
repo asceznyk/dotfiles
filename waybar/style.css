@@ -14,11 +14,11 @@ window#waybar {
 }
 
 #workspaces {
-  margin-left: 8px;
+  margin: 0;
 }
 
 #workspaces button {
-  background: transparent;
+  background: #002b36;
   color: #839496;
   border: none;
   border-radius: 0;
@@ -27,6 +27,7 @@ window#waybar {
 
 #workspaces button.active {
   color: #fdf6e3;
+  background: #268bd2;
 }
 
 #workspaces button:hover {
@@ -38,16 +39,24 @@ window#waybar {
 #memory,
 #network,
 #battery,
-#disk {
+#disk,
+#bluetooth,
+#tray,
+#temperature {
   color: #839496;
   padding: 0 10px;
 }
 
-#battery.warning {
-  color: #b58900;
+#clock {
+  background: #002b36;
 }
 
-#battery.critical {
+#battery.warning {
+  color: #d33682;
+}
+
+#battery.critical,
+#temperature.critical {
   color: #dc322f;
 }
 
@@ -55,13 +64,22 @@ window#waybar {
   color: #859900;
 }
 
+#battery.full {
+  color: #fdf6e3;
+}
+
 tooltip {
   background: #000000;
   border: 2px solid #002b36;
+  text-shadow: none;
   border-radius: 0px;
+  padding: 0;
+  margin: 0;
 }
 
 tooltip label {
   color: #839496;
   font-family: monospace;
+  padding: 0;
+  margin: 0;
 }
