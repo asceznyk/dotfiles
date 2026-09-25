@@ -1,0 +1,45 @@
+Mod + K                  → Show keybinds
+Mod + Return             → Open terminal
+Mod + B                  → Open browser
+Mod + W                  → Open network manager
+Mod + Space              → Application launcher
+Mod + Q                  → Close window
+Mod + V                  → Toggle floating
+Mod + M                  → Maximize column
+Mod + C                  → Center column
+Mod + Left               → Focus column left
+Mod + Right              → Focus column right
+Mod + Up                 → Focus window up
+Mod + Down               → Focus window down
+Mod + Shift + Left       → Move column left
+Mod + Shift + Right      → Move column right
+Mod + Shift + Up         → Move window up
+Mod + Shift + Down       → Move window down
+Mod + [                  → Consume/expel window left
+Mod + ]                  → Consume/expel window right
+Mod + ,                  → Consume window into column
+Mod + .                  → Expel window from column
+Mod + -                  → Decrease column width
+Mod + =                  → Increase column width
+Mod + Shift + -          → Decrease window height
+Mod + Shift + =          → Increase window height
+Mod + 1–9                → Switch workspace
+Mod + Shift + 1–9        → Move window to workspace
+Mod + Scroll Up          → Switch to previous workspace
+Mod + Scroll Down        → Switch to next workspace
+Mod + Ctrl + Scroll Up   → Move window to previous workspace
+Mod + Ctrl + Scroll Down → Move window to next workspace
+Mod + O                  → Toggle overview
+F1                       → Toggle output mute
+F2                       → Decrease volume
+F3                       → Increase volume
+F9                       → Toggle microphone mute
+F4                       → Decrease brightness
+F5                       → Increase brightness
+Mod + Mouse Left         → Move window
+Mod + Mouse Right        → Resize window
+Print                    → Screenshot screen
+Ctrl + Print             → Screenshot area
+Alt + Print              → Screenshot window
+Mod + Shift + E          → Quit Niri
+Mod + Shift + P          → Shutdown
