@@ -6,9 +6,9 @@ hl.monitor({
 })
 
 local terminal = "kitty"
-local menu = "rofi -show drun"
+local menu = "rofi -show drun -show-icons"
 local keybinds = "rofi -dmenu -i -p \"Keybinds\" < ~/.config/hypr/keybinds.txt"
-local browser = "brave"
+local browser = "brave-origin"
 
 hl.on("hyprland.start", function()
   hl.exec_cmd("hyprctl eval 'hl.config({ xwayland = { force_zero_scaling = true } })'")
@@ -16,9 +16,6 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("waybar")
   hl.exec_cmd("swayosd-server &")
 end)
-
-hl.env("XCURSOR_SIZE", "18")
-hl.env("HYPRCURSOR_SIZE", "18")
 
 hl.curve("quick", { type = "bezier", points = { {0.15, 0}, {0.1, 1} } })
 
@@ -36,45 +33,22 @@ hl.config({
     layout = "scrolling",
   },
   decoration = {
-    rounding = 0,
     active_opacity = 1.0,
-    inactive_opacity = 0.9,
+    inactive_opacity = 0.93,
     shadow = { enabled = false, },
     blur = {
       enabled = true,
       size = 3,
       passes = 4,
-      vibrancy = 2.0,
+      vibrancy = 1.0,
     },
   },
   animations = {
     enabled = true,
-    workspace_wraparound = true
   },
-})
-
-hl.animation({ leaf = "global", enabled = true, speed = 1, bezier = "quick" })
-hl.animation({ leaf = "border", enabled = true, speed = 1, bezier = "quick" })
-hl.animation({ leaf = "windows", enabled = true, speed = 1, bezier = "quick" })
-hl.animation({ leaf = "windowsMove", enabled = true, speed = 1, bezier = "quick" })
-hl.animation({ leaf = "fade", enabled = true, speed = 1, bezier = "quick" })
-hl.animation({ leaf = "layers", enabled = true, speed = 1, bezier = "quick" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 1, bezier = "quick" })
-hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
-
-hl.config({
-  master = {
-    new_status = "master",
-  },
-})
-
-hl.config({
   scrolling = {
     fullscreen_on_one_column = true,
   },
-})
-
-hl.config({
   misc = {
     force_default_wallpaper = 1, 
     disable_hyprland_logo = true,
@@ -82,9 +56,6 @@ hl.config({
     animate_manual_resizes = true,
     animate_mouse_windowdragging = true,
   },
-})
-
-hl.config({
   input = {
     kb_layout = "us",
     kb_variant = "",
@@ -95,9 +66,31 @@ hl.config({
     sensitivity = 1.0,
     touchpad = {
       natural_scroll = true,
-    },
+    }
   },
+  master = {
+    new_status = "master",
+  }
 })
+
+hl.layer_rule({
+  match = { namespace = "waybar" },
+  animation = "fade"
+})
+
+for _, leaf in ipairs({
+  "global",
+  "border",
+  "windows",
+  "windowsMove",
+  "fade",
+  "layers",
+  "workspaces"
+}) do
+  hl.animation({ leaf = leaf, enabled = true, speed = 1, bezier = "quick" })
+end
+
+hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
 
 hl.gesture({
   fingers = 3,
@@ -120,6 +113,7 @@ hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("networkmanager_dmenu"))
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("shutdown now"))
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
 hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(terminal .. " yazi"))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 
 local maximized = {}
@@ -142,7 +136,7 @@ hl.bind(
     "command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"
   )
 )
-hl.bind(mainMod .. " + O", hl.dsp.window.float({ action = "toggle" }))
+hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + Space", hl.dsp.exec_cmd(menu))
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
 
@@ -157,8 +151,8 @@ for i = 1, 10 do
   hl.bind(mainMod .. " + SHIFT + " .. key, hl.dsp.window.move({ workspace = i }))
 end
 
-hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
-hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
+-- hl.bind(mainMod .. " + S", hl.dsp.workspace.toggle_special("magic"))
+-- hl.bind(mainMod .. " + SHIFT + S", hl.dsp.window.move({ workspace = "special:magic" }))
 
 hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
 hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
@@ -193,11 +187,6 @@ hl.bind("F3", hl.dsp.exec_cmd("swayosd-client --output-volume raise"))
 hl.bind("F4", hl.dsp.exec_cmd("swayosd-client --brightness lower"))
 hl.bind("F5", hl.dsp.exec_cmd("swayosd-client --brightness raise"))
 hl.bind("F9", hl.dsp.exec_cmd("swayosd-client --input-volume mute-toggle"))
-
-hl.bind("XF86AudioNext", hl.dsp.exec_cmd("playerctl next"), { locked = true })
-hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), { locked = true })
-hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), { locked = true })
 
 local suppressMaximizeRule = hl.window_rule({
   name = "suppress-maximize-events",
