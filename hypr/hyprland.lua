@@ -105,14 +105,14 @@ hl.device({
 
 local mainMod = "SUPER"
 
-hl.bind("Print", hl.dsp.exec_cmd("grim $HOME/pictures/shot_$(date +%s).png && notify-send \"Screenshot saved to ~/pictures/shot_$(date +%s).png\""))
-hl.bind("SHIFT + Print", hl.dsp.exec_cmd("grim -g \"$(slurp)\" $HOME/pictures/shot_$(date +%s).png && notify-send \"Screenshot saved to ~/pictures/shot_$(date +%s).png\""))
+hl.bind("Print", hl.dsp.exec_cmd([[sh -c 'file="$HOME/pictures/shot_$(date +%s).png"; grim "$file" && notify-send -i "$file" "Screenshot" "Picture saved to $file"']]))
+hl.bind("SHIFT + Print", hl.dsp.exec_cmd("$HOME/.config/hypr/sccrop.sh"))
 
 hl.bind(mainMod .. " + K", hl.dsp.exec_cmd(keybinds))
 hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("networkmanager_dmenu"))
 hl.bind(mainMod .. " + SHIFT + P", hl.dsp.exec_cmd("shutdown now"))
 hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd(terminal))
-hl.bind(mainMod .. " + B", hl.dsp.exec_cmd(browser))
+hl.bind(mainMod .. " + BACKSLASH", hl.dsp.exec_cmd(browser))
 hl.bind(mainMod .. " + F", hl.dsp.exec_cmd(terminal .. " yazi"))
 hl.bind(mainMod .. " + Q", hl.dsp.window.close())
 

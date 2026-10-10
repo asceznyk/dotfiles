@@ -1,7 +1,8 @@
 Mod + K             → Keybinds   
 Mod + Return        → Terminal
-Mod + B             → Browser
+Mod + \             → Browser
 Mod + W             → Network Manager
+Mod + L             → File Manager
 Mod + Space         → Rofi - Application Launcher
 Mod + Q             → Kill window
 Mod + O             → Toggle floating

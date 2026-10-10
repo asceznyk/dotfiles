@@ -1,6 +1,6 @@
 SUPER + K             → Keybinds   
 SUPER + Return        → Terminal
-SUPER + B             → Browser
+SUPER + \             → Browser
 SUPER + W             → Network Manager
 SUPER + Space         → Rofi - Application Launcher
 SUPER + Q             → Kill window

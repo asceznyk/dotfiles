@@ -1,6 +1,7 @@
 set $mod Mod4
 set $term kitty
-set $browser brave
+set $browser brave-origin
+set $filemanager kitty yazi
 
 input * {
   xkb_layout us
@@ -9,11 +10,12 @@ input * {
 output eDP-1 scale 1.0
 
 exec_always mako
-exec_always swaybg -i ~/pictures/thumb_st_jp3.jpg -m fill
-exec_always --no-startup-id swayosd-server
+exec_always waybar
+exec_always swaybg -i ~/pictures/thumb_shop_jp.jpg -m fill
+exec_always swayosd-server
 exec_always systemctl --user import-environment WAYLAND_DISPLAY XDG_RUNTIME_DIR XDG_SESSION_TYPE XDG_CURRENT_DESKTOP
 
-workspace_layout tabbed
+workspace_layout default
 
 default_border pixel 2
 default_floating_border pixel 2
@@ -26,7 +28,6 @@ client.unfocused #073642 #073642 #839496 #073642 #073642
 floating_modifier $mod normal
 
 font pango:monospace 11
-
 titlebar_padding 5 1
 titlebar_border_thickness 0
 
@@ -34,12 +35,13 @@ exec nm-applet --indicator
 
 floating_modifier $mod
 
-bindsym $mod+Space exec rofi -show drun
+bindsym $mod+Space exec rofi -show drun -show-icons
 bindsym $mod+w exec networkmanager_dmenu
 bindsym $mod+k exec rofi -dmenu -i -p "Keybinds" < ~/.config/sway/keybinds.txt
 
 bindsym $mod+Return exec $term
-bindsym $mod+b exec $browser
+bindsym $mod+backslash exec $browser
+bindsym $mod+l exec $filemanager
 
 bindsym $mod+q kill
 
@@ -113,22 +115,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-bar {
-  font pango:monospace 10
-  separator_symbol "  "
-  position bottom
-  height 25
-  status_command i3status
-  colors {
-    background #000000
-    statusline #839496
-    focused_workspace #268bd2 #268bd2 #fdf6e3
-    active_workspace #268bd2 #268bd2 #002b36
-    inactive_workspace #073642 #073642 #839496
-    urgent_workspace #dc322f #dc322f #fdf6e3
-  }
-}
-
 input type:touchpad {
   tap enabled
   natural_scroll enabled
@@ -151,6 +137,6 @@ bindsym F5 exec swayosd-client --brightness raise
 
 bindsym F9 exec swayosd-client --input-volume mute-toggle
 
-bindsym Print exec grim ~/pictures/shot_$(date +%s).png 
-bindsym Shift+Print exec grim -g "$(slurp)" ~/pictures/shot_$(date +%s).png
+bindsym Print exec sh -c 'file="$HOME/pictures/shot_$(date +%s).png"; grim "$file" && notify-send -i "$file" "Screenshot" "Picture saved to $file"'
+bindsym Shift+Print exec $HOME/.config/sway/sccrop.sh 
 
