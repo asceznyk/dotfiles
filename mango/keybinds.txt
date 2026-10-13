@@ -1,0 +1,35 @@
+super + shift + r            → Reload config
+super + k                    → Keybinds
+super + return               → Terminal
+super + \                    → Browser
+super + w                    → Network Manager
+super + space                → Application Launcher (Rofi)
+super + l                    → File Manager (Yazi)
+super + q                    → Kill window
+super + m                    → Maximize/restore window
+super + v                    → Toggle floating
+super + shift + e            → Quit MangoWM
+super + shift + p            → Shutdown
+super + arrow                → Move focus
+super + shift + arrow        → Swap window
+super + ctrl + arrow         → Resize window
+alt + super + ctrl + arrow   → Navigate scroller stack
+super + 1–9                  → Switch workspace
+super + shift + 1–9          → Move window to workspace
+super + shift + x            → Increase gaps
+super + shift + z            → Decrease gaps
+super + i                    → Minimize window
+super + g                    → Restore minimized window
+super + escape               → Toggle overview
+super + z                    → Toggle scratchpad
+super + f                    → Toggle fullscreen
+super + mouse left           → Drag window
+super + mouse right          → Resize window
+print                        → Take screenshot
+shift + print                → Screenshot region
+f1                           → Mute/unmute output volume
+f2                           → Decrease output volume
+f3                           → Increase output volume
+f4                           → Decrease brightness
+f5                           → Increase brightness
+f9                           → Mute/unmute input volume
