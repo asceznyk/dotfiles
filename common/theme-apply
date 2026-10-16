@@ -1,0 +1,154 @@
+#!/usr/bin/env python3
+import tomllib
+from pathlib import Path
+
+CONFIG = Path.home() / ".config"
+THEME = CONFIG / "theme"
+PALETTE = THEME / "palette.toml"
+
+def write(path, content):
+  path.parent.mkdir(parents=True, exist_ok=True)
+  path.write_text(content.rstrip() + "\n")
+
+def main():
+  if not PALETTE.is_file():
+    raise FileNotFoundError(f"Palette not found: {PALETTE}")
+  with PALETTE.open("rb") as f:
+    colors = tomllib.load(f)["colors"]
+  required = [
+    "background", "foreground", "selection_background",
+    "selection_foreground", "border", "base03", "base02",
+    "base01", "base00", "base0", "base1", "base2", "base3",
+    "yellow", "orange", "red", "magenta", "violet", "blue",
+    "cyan", "green"
+  ] + [f"color{i}" for i in range(16)]
+  missing = [key for key in required if key not in colors]
+  if missing:
+    raise ValueError(f"Missing palette colors: {', '.join(missing)}")
+  def rgba(key):
+    return f"0x{colors[key].lstrip('#')}ff"
+  # Waybar: GTK CSS definitions.
+  write(CONFIG / "waybar/colors.css", "\n".join(
+    f"@define-color {key.replace('_', '-')} {value};"
+    for key, value in colors.items()
+  ))
+  # Rofi: custom properties must use valid Rasi identifiers.
+  # Provide the aliases used by the existing config.rasi.
+  rofi_colors = {
+    key: value for key, value in colors.items()
+    if "_" not in key
+  }
+  rofi_colors.update({
+    "white": colors["base3"],
+    "active-background": colors["base02"],
+    "active-foreground": colors["base3"],
+    "prompt-foreground": colors["yellow"],
+    "urgent-background": colors["base00"],
+    "muted-foreground": colors["cyan"],
+    "selected-foreground": "@active-foreground",
+    "selected-background": "@active-background",
+    "selected-urgent-background": "@urgent-background",
+    "selected-active-background": "@active-background",
+    "selected-active-foreground": "@active-foreground",
+    "separatorcolor": colors["blue"],
+    "bordercolor": colors["base02"]
+  })
+  rofi_lines = ["* {"]
+  rofi_lines.extend(
+    f"  {key}: {value};"
+    for key, value in rofi_colors.items()
+  )
+  rofi_lines.append("}")
+  write(CONFIG / "rofi/colors.rasi", "\n".join(rofi_lines))
+  # Kitty: terminal palette.
+  kitty = [
+    f"background {colors['background']}",
+    f"foreground {colors['foreground']}",
+    f"selection_background {colors['selection_background']}",
+    f"selection_foreground none",
+    f"cursor {colors['orange']}",
+    f"cursor_text_color {colors['background']}"
+  ]
+  kitty.extend(
+    f"color{i} {colors[f'color{i}']}"
+    for i in range(16)
+  )
+  write(CONFIG / "kitty/theme.conf", "\n".join(kitty))
+  # Mako: notification colors.
+  write(CONFIG / "mako/theme.conf", "\n".join([
+    f"background-color={colors['background']}",
+    f"text-color={colors['foreground']}",
+    f"border-color={colors['border']}",
+    f"progress-color=over {colors['base02']}",
+    f"\n",
+    f"[urgency=critical]",
+    f"border-color=#dc322f",
+    f"text-color=#fdf6e3"
+  ]))
+  # MangoWM: 0xRRGGBBAA.
+  mango = {
+    "root_color": "background",
+    "border_color": "border",
+    "focus_color": "blue",
+    "drop_color": "green",
+    "split_color": "orange",
+    "maximized_screen_color": "blue",
+    "urgent_color": "red",
+    "scratchpad_color": "violet",
+    "global_color": "magenta",
+    "overlay_color": "cyan"
+  }
+  write(CONFIG / "mango/theme.conf", "\n".join(
+    f"{setting}={rgba(key)}"
+    for setting, key in mango.items()
+  ))
+  # Sway: border, background, text, indicator, child-border.
+  sway = {
+    "client.focused": ("blue", "blue", "base3", "blue", "blue"),
+    "client.focused_inactive": ("base02", "base02", "base0", "base02", "base02"),
+    "client.unfocused": ("base02", "base02", "base0", "base02", "base02"),
+    "client.urgent": ("red", "red", "base3", "red", "red"),
+    "client.placeholder": ("base02", "base02", "base0", "base02", "base02")
+  }
+  write(CONFIG / "sway/theme.conf", "\n".join(
+    f"{setting} " + " ".join(colors[key] for key in values)
+    for setting, values in sway.items()
+  ))
+  # Neovim: Lua color table.
+  write(CONFIG / "nvim/lua/theme.lua", "return {\n" + "\n".join(
+    f'  ["{key}"] = "{value}",'
+    for key, value in colors.items()
+  ) + "\n}")
+  # Cava: native theme syntax.
+  cava = [
+    "[color]",
+    f"background = '{colors['background']}'",
+    f"foreground = '{colors['foreground']}'",
+    "gradient = 1",
+    f"gradient_color_1 = '{colors['blue']}'",
+    f"gradient_color_2 = '{colors['violet']}'",
+    f"gradient_color_3 = '{colors['magenta']}'",
+    "horizontal_gradient = 1",
+    f"horizontal_gradient_color_1 = '{colors['base00']}'",
+    f"horizontal_gradient_color_2 = '{colors['base0']}'",
+    f"horizontal_gradient_color_3 = '{colors['base1']}'",
+    "blend_direction = 'down'"
+  ]
+  write(CONFIG / "cava/themes/solarized-black", "\n".join(cava))
+  print("Generated theme files:")
+  for path in [
+    CONFIG / "waybar/colors.css",
+    CONFIG / "rofi/colors.rasi",
+    CONFIG / "kitty/theme.conf",
+    CONFIG / "mako/theme.conf",
+    CONFIG / "mango/theme.conf",
+    CONFIG / "sway/theme.conf",
+    CONFIG / "nvim/lua/theme.lua",
+    CONFIG / "cava/themes/solarized-black"
+  ]:
+    print(f"  {path}")
+  print("Generated files. Ensure each application imports its theme.")
+
+if __name__ == "__main__":
+  main()
+
